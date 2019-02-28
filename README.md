@@ -70,8 +70,14 @@ Vamos a ver una serie de comandos que nos ayudarán en el camino de entender com
 
 | Comando | Descripción |
 |---------|-------------|
-|docker ps|Lista los contenedores|
+|docker ps|Lista los contenedores en ejecución|
 |docker ps -a|Lista los contenedores a detalles|
+|docker ps -qa|Lista solo los Id de los contenedores (q: quiet, tranquilo o silencioso)|
 |docker inspect [id_contenedor]|Muestra los detalles de un contenedor en específico|
-|docker inspect -f '{{ json [lo que queramos ver]}}' [id_contenedor]|Muestra el detalle de un atributo del contenedor seleccionado|
+|docker inspect [nombre_del_contenedor]|Muestra los detalles de un contenedor con el nombre ingresado|
+|docker inspect -f [json template para el filtrado] [id_contenedor]|Muestra el detalle de un atributo del contenedor seleccionado|
 |docker rename [nombre del contenedor] [nuevo nombre]|Renombra el contenedor seleccionado|
+|docker rm [nombre del contenedor]|Elimina el contenedor con el nombre|
+|docker rm $(docker ps -aq)|Elimina todos los contenedores que no esten corriendo|
+
+
