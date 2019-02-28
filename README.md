@@ -53,4 +53,9 @@ $ sudo usermod -aG docker <<tu_username>>
 ~~~
 9. Por ultimo debes reiniciar la sesión y ya tendrás todo listo.
 
-
+## Mi primer hola mundo con Docker
+Una vez que ya todo está instalado y funcionando correctamente vamos a verificar que todo está bien haciendo nuestro primer "hola mundo" con docker, para ello vamos a ejecutar el siguiente comando
+~~~sh
+$ docker run hello-world
+~~~ 
+una vez hecho esto habremos ejecutado nuestro primer contenedor de docker y nos trae cierta información que indica que docker está funcionando correctamente en nuestro pc.
