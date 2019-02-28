@@ -1,6 +1,6 @@
 # Fundamentos de Docker
-Docker nos ayuda con varios problemas y uno de los más importantes es que nos evita pasar vergüenzas ya no volveremos a decir esta oración: "En mi máquina funciona bien"
-Lo que hace es que tal cual como nosotros tenemos funcionando una aplicación en nuestra máquina, así mismo va a funcionar en docker.
+Docker nos ayuda con varios problemas y uno de los más importantes es que nos evita pasar vergüenzas ya no volveremos a decir esta oración: "En mi máquina funciona bien".  
+Lo que hace es que tal cual como nosotros tenemos funcionando una aplicación en nuestra máquina, así mismo va a funcionar en docker.  
 Docker es un servicio que funciona con "contenedores" en los cuales se van a almacenar nuestras aplicaciones con todas las dependencias que necesitamos para que funcione correctamente.
 
 ## Instalación de docker
@@ -28,7 +28,8 @@ $ sudo apt install \
 ~~~sh
 $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 ~~~
-4. Utiliza el siguiente comando para configurar el repositorio estable. Si quieres añadir las veriones de test o las nightly agrega la palabra test o nightly (o las dos) despues de la palabra "stable" en el siguiente comando.
+4. Utiliza el siguiente comando para configurar el repositorio estable.  
+Si quieres añadir las veriones de test o las nightly agrega la palabra test o nightly (o las dos) despues de la palabra "stable" en el siguiente comando.
 ~~~sh
 $ sudo add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
@@ -59,3 +60,18 @@ Una vez que ya todo está instalado y funcionando correctamente vamos a verifica
 $ docker run hello-world
 ~~~ 
 una vez hecho esto habremos ejecutado nuestro primer contenedor de docker y nos trae cierta información que indica que docker está funcionando correctamente en nuestro pc.
+
+## Contenedores
+Un contenedor es una agrupación de procesos, es una entidad lógica y a diferencia de las maquinas virtuales no es una simulación ni nada de eso, un contenedor ejecuta los procesos de forma nativa utilizando como base el sistema operativo y esto contenedores ven su universo como solo lo que hay en este contenedor y no tienen forma de consumir más recursos de los que el contenedor tiene disponibles.  
+Un contenedor solo tiene acceso a una parte del disco delimitada y no tiene acceso a nada más, no va a saber que existe más hardware del asignado.  
+[Aquí](https://itnext.io/chroot-cgroups-and-namespaces-an-overview-37124d995e3d) podremos encontrar mucha documentación donde se habla a cerca de que componentes del kernel de linux utiliza docker.
+## Comandos
+Vamos a ver una serie de comandos que nos ayudarán en el camino de entender como funciona docker.
+
+| Comando | Descripción |
+|---------|-------------|
+|docker ps|Lista los contenedores|
+|docker ps -a|Lista los contenedores a detalles|
+|docker inspect [id_contenedor]|Muestra los detalles de un contenedor en específico|
+|docker inspect -f '{{ json [lo que queramos ver]}}' [id_contenedor]|Muestra el detalle de un atributo del contenedor seleccionado|
+|docker rename [nombre del contenedor] [nuevo nombre]|Renombra el contenedor seleccionado|
