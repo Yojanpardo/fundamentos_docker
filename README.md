@@ -79,5 +79,37 @@ Vamos a ver una serie de comandos que nos ayudarán en el camino de entender com
 |docker rename [nombre del contenedor] [nuevo nombre]|Renombra el contenedor seleccionado|
 |docker rm [nombre del contenedor]|Elimina el contenedor con el nombre|
 |docker rm $(docker ps -aq)|Elimina todos los contenedores que no esten corriendo|
+|docker run ubuntu tail -f /dev/null|Ejecutamos un contenedor con Ubuntu y lo dejamos prendido y a la espera de que querramos ingresar|
+|docker exec -it [nombre de contenedor con ubuntu] bash|Permite ingresar a ese contenedor para seguir trabajando allí|
+|docker kill [nombre del contenedor]|mata a ese contenedor si se está ejecutando|
+|docker rm -f|Forzar la eliminación de un contenedor|
+|docker run -d --name server nginx|ejecuta un servicio web a traves de nginx|
+|docker run -d --name server -p 8080 nginx|ejecuta un servicio web a traves de nginx y se le dice explicitamente que el puerto 8080 de mi máquina apunte al servicio de nginx|
+|docker run -d --name db mongo|ejecuta un servicio de base de datos con mongo|
 
+## Corriendo un ubuntu en docker
+Dentro de docker podemos hacer muchas cosas y una de las mas locas es que podemos correr un sistema operativo como ubuntu dentro de docker y solo debemos escribir el siguiente comando.  
+~~~sh
+$ docker run -ti ubuntu
+~~~
+Nos aparecerá la shell de ubuntu y ahí podremos ejecutar todos los comando de ubuntu sin ningun problema.
 
+## Ciclo de vida de un contenedor
+Un contenedor siempre estará vivo mientras se esté ejecuntando un proceso dentro de él, si nos salimos y no podemos entrar nuevamente lo unico que debemos hacer para cerrar ese proceso es decirle a docker que mate los procesos del contenedor.  
+
+## Cómo exponer un contenedor al mundo
+Lo vamos a hacer utilizando [nginx](https://www.nginx.com/) y con los comandos que se muestran en la tabala para crear un nuevo servicio.
+
+## Datos en docker
+Para este caso vamos a utilizar una base de datos de mongo y para ello utilizamos el siguiente comando
+~~~sh
+$ docker run -d --name db mongo
+~~~
+Lo que hicimo fu crear un nuevo contenedor con una base de datos mongo que se va a llamar db y que va a funcionar aunque no la veamos gracias al flag -d.  
+Uno de los problemas al hacer esto es que si eliminamos el contenedor, toda la data almacenada en él va a ser eliminada tambien. Para que eso no suceda debemos crear un direcctorio en nuestro sistema operativo que se va a conectar al contenedor como un volumen externo y ahí se almacenarán todos los datos.  
+
+1. Crearemos un directorio para nuestro contenedor
+~~~sh
+$ mkdir mongodb
+~~~
+2.  
