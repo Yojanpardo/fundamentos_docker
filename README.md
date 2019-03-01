@@ -118,4 +118,34 @@ $ docker run --name db -d -v [el path de nuestra carpeta mongodata]:[destino den
 // En mi caso yo lo hice así:
 $ docker run -d --name db -v /home/neox/Projects/fundamentos_docker/mongodata:/data/db mongo
 ~~~
+Hay un gran problema al manejar los volumenes de esa manera y es que es accesible para todo el mundo entonces debemos hacerlo más seguro y para ello hacemos uso de una cosa nueva que se llama docker volumes que es un area manejada por docker y solo accesible por los contenedores.  
+~~~sh
+$ docker volume ls //para listar los volumenes
+$ docker volume prune //para eliminar los volumenes que no tienen ningun contenedor
+$ docker volume create [dombre del volumen] //crea un nuevo volumen 
+$ docker run -d --name db --mount src=[nombre del volumen],dst=/data/db mongo //ejecuta un contenedor con mongo y le asigna un volumen que ya habremos creado 
+
+~~~
+
+## Imágenes en docker
+Son plantillas de contenedores, cuando ejecutamos _docker run_ traemos una imagen y la ejecutamos, pero que pasa si solo queremos bajar una imagen?  
+Las imágenes en docker pertenecen a un repositorio en el cual se almacenan.  
+Vamos a ver algunos comandos que nos ayudarán con el manejo de imágenes.
+~~~sh
+$ docker image ls //lista las imagenes que tenemos descargadas
+$ docker pull [repositorio de la imagen] //descarga la imagen descrita
+$ docker pull redis //por ejemplo esta descarga una imagen de redis en su útima versión
+$ docker pull [repositorio de la imagen]:[version] //descarga una versión específica de la imagen
+$ docker pull ubuntu:18.10 //por ejemplo esta descarga esa version específica de ese repo
+$ docker rmi -f [id de imagen] //Elimina la imagen seleccionada
+~~~
+
+### Creando nuestras propias imagenes
+para crear nuestras propias imagenes debemos crear un archivo llamado _Dockerfile_ en nuestro directorio y dentro de él escribir algunas configuraciones que ya las veremos acontinuación.  
+~~~sh
+$ cat > Dockerfile                  //Creamos el dockerfile 
+FROM ubuntu                         //Siempre debe tener la imagen de donde extiende 
+RUN touch /usr/src/hola-platzi      //Este comando se ejecuta al momento de construir el contenedo
+^C
+$ docker build -t ubuntu:platzi .   //Esto construye el contenedor con las especificaciones que le dimos en el Dockerfile
 ~~~
