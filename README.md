@@ -108,8 +108,14 @@ $ docker run -d --name db mongo
 Lo que hicimo fu crear un nuevo contenedor con una base de datos mongo que se va a llamar db y que va a funcionar aunque no la veamos gracias al flag -d.  
 Uno de los problemas al hacer esto es que si eliminamos el contenedor, toda la data almacenada en él va a ser eliminada tambien. Para que eso no suceda debemos crear un direcctorio en nuestro sistema operativo que se va a conectar al contenedor como un volumen externo y ahí se almacenarán todos los datos.  
 
-1. Crearemos un directorio para nuestro contenedor
+1. Crearemos un directorio para los datos de nuestro contenedor
 ~~~sh
-$ mkdir mongodb
+$ mkdir mongodata
 ~~~
-2.  
+2. vamos a iniciar nuestro contenedor especificandole cual es el directorio que va a utilizar y lo hacemos de la siguiente manera
+~~~sh
+$ docker run --name db -d -v [el path de nuestra carpeta mongodata]:[destino dentro del directorio] mongo
+// En mi caso yo lo hice así:
+$ docker run -d --name db -v /home/neox/Projects/fundamentos_docker/mongodata:/data/db mongo
+~~~
+~~~
