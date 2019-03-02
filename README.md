@@ -124,7 +124,7 @@ $ docker volume ls //para listar los volumenes
 $ docker volume prune //para eliminar los volumenes que no tienen ningun contenedor
 $ docker volume create [dombre del volumen] //crea un nuevo volumen 
 $ docker run -d --name db --mount src=[nombre del volumen],dst=/data/db mongo //ejecuta un contenedor con mongo y le asigna un volumen que ya habremos creado 
-
+docker run -d --name app -p 3000:3000 --env MONGO_URL=mongodb://db:27017/test platziapp //el flag --env nos permite añadir una variable de entorno para que nuestra aplicación la tenga en cuenta y se pueda conectar a la base de datos
 ~~~
 
 ## Imágenes en docker
@@ -148,4 +148,17 @@ FROM ubuntu                         //Siempre debe tener la imagen de donde exti
 RUN touch /usr/src/hola-platzi      //Este comando se ejecuta al momento de construir el contenedo
 ^C
 $ docker build -t ubuntu:platzi .   //Esto construye el contenedor con las especificaciones que le dimos en el Dockerfile
+~~~  
+Para que docker ignore algunos archivos lo único que debemos hacer es crear un archivo que se llame .dockerignore y ahi escribimos los nombres de los archivos que queremos ignorar.
+
+## Usando docker para el desarrollo de aplicaciones
+Para este ejercicio voy a hacerle fork al repo en github de platzi/docker y voy a trabajarlo en mi cuenta en [este repositorio](https://github.com/Yojanpardo/docker) donde voy a hacer el despliegue de una aplicacion con docker.  
+Cuando utilizamos docker y necesitamos más de un servicio, por ejemplo una aplicación con django y base de datos postgresql, lo que debemos hacer es crear 2 contenedores, uno para cada servicio, e interconectarlos entre sí para que funcione correctamente la aplicación que estamos desarrollando.  
+Los siguientes comandos nos van a ayudar con todo lo que tiene que ver con las redes en docker.  
+~~~sh
+$ docker network ls //muestra las redes de docker
+$ docker network create --attachable [nombre] //crea una red con el nombre que le asignemos y permite que nuevos contenedore se conecten a esa red
+$ docker network connect [nombre de la red] [nombre del contenedor] //conecta el contenedor mencionado a la red mencionada
+$ docker network inspect [nombre de una red] //nos muestra los detalles de una red y los contenedores conectados a ella
+$ docker network 
 ~~~
